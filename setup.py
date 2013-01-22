@@ -22,5 +22,6 @@ setup(name='dotenv',
       url='http://witoi.github.com',
       test_suite='nose.collector',
       packages=['dotenv'],
-      tests_require=['nose']
+      tests_require=['nose'],
+      scripts=['scripts/dotenv']
      )
