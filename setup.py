@@ -17,7 +17,7 @@ from dotenv import __version__
 setup(name='dotenv',
       version=__version__,
       description='Handle .env files',
-      author=u'Pedro Burón',
+      author='Pedro Burón',
       author_email='pedro@witoi.com',
       url='http://witoi.github.com',
       test_suite='nose.collector',
