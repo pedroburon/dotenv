@@ -1,6 +1,6 @@
+from __future__ import with_statement
 import os
 from tempfile import mkstemp
-from unittest import TestCase
 
 from dotenv import set_variable, Dotenv, get_variable, get_variables
 
