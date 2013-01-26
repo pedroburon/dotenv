@@ -1,4 +1,9 @@
-__version__ = '0.0.2'
+# encoding=UTF-8
+
+from __future__ import with_statement
+
+
+__version__ = '0.0.3'
 
 
 class Dotenv(dict):

@@ -4,8 +4,10 @@ from unittest import TestCase
 
 from dotenv import set_variable, Dotenv, get_variable, get_variables
 
+from utils import CompatibilityTestCase
 
-class DotenvTest(TestCase):
+
+class DotenvTest(CompatibilityTestCase):
     def setUp(self):
         fd, self.file_path = mkstemp()
         with open(self.file_path, 'w') as file:
@@ -58,7 +60,7 @@ class DotenvTest(TestCase):
             self.assertEqual(2, len(file.readlines()))
 
 
-class FunctionalTest(TestCase):
+class FunctionalTest(CompatibilityTestCase):
     def setUp(self):
         fd, self.file_path = mkstemp()
         with open(self.file_path, 'w') as file:
@@ -89,9 +91,9 @@ class FunctionalTest(TestCase):
 
         self.assertEqual('1234', result)
 
-    def test_get_variables(self):   
+    def test_get_variables(self):
         result = get_variables(self.file_path)
-        
+
         dotenv = Dotenv(self.file_path)
-        
+
         self.assertEqual(result, dotenv)
