@@ -14,6 +14,7 @@ class DotenvTest(CompatibilityTestCase):
             file.write("FOO='bar'\n")
             file.write("Bar=foo'\n")
             file.write("baz=1234'\n")
+            file.write("url='https://test.oi/do?it=fast'\n")
         self.dotenv = Dotenv(self.file_path)
 
     def tearDown(self):
@@ -24,12 +25,12 @@ class DotenvTest(CompatibilityTestCase):
         self.assertIsInstance(self.dotenv, dict)
 
     def test_get_keys(self):
-        expected = set(['FOO', 'Bar', 'baz'])
+        expected = set(['FOO', 'Bar', 'baz', 'url'])
 
         self.assertEqual(expected, set(self.dotenv.keys()))
 
     def test_get_values(self):
-        expected = set(['bar', 'foo', '1234'])
+        expected = set(['bar', 'foo', '1234', 'https://test.oi/do?it=fast'])
 
         self.assertEqual(expected, set(self.dotenv.values()))
 
@@ -48,7 +49,7 @@ class DotenvTest(CompatibilityTestCase):
 
         self.assertEqual('987', newdotenv['baz'])
         with open(self.file_path, 'r') as file:
-            self.assertEqual(3, len(file.readlines()))
+            self.assertEqual(4, len(file.readlines()))
 
     def test_del_key(self):
         del self.dotenv['baz']
@@ -57,7 +58,7 @@ class DotenvTest(CompatibilityTestCase):
 
         self.assertNotIn('baz', newdotenv)
         with open(self.file_path, 'r') as file:
-            self.assertEqual(2, len(file.readlines()))
+            self.assertEqual(3, len(file.readlines()))
 
 
 class FunctionalTest(CompatibilityTestCase):
