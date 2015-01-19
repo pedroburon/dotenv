@@ -19,7 +19,8 @@ class Dotenv(dict):
             return variables
 
     def __parse_line(self, line):
-        key, value = map(lambda x: x.strip().strip('\'').strip('"'), line.split('='))
+        key, value = map(lambda x: x.strip().strip('\'').strip('"'),
+                         line.split('=', 1))
         return {key: value}
 
     def __persist(self):
