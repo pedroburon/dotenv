@@ -35,7 +35,7 @@ FOO: baz
 ### As a library
 
 ```python
->>> from dotenv import DotEnv
+>>> from dotenv import Dotenv
 >>> dotenv = DotEnv('/path/to/.env')
 >>> print dotenv
 {"FOO": "bar", "Bar": "baz"}
