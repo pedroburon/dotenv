@@ -1,9 +1,9 @@
 Python Dot Env Handler
 ======================
 
-Shell Command and Library to write and read .env like files.
+Shell Command and Library to write and read `.env` like files.
 
-.env file are commonly used with Procfile based apps.
+`.env` files are commonly used with `Procfile`-based apps.
 
 Usage
 -----
