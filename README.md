@@ -1,6 +1,9 @@
 Python Dot Env Handler
 ======================
 
+[![Latest Version](https://pypip.in/version/dotenv/badge.svg)](https://pypi.python.org/pypi/dotenv/)
+[![Build Status](https://travis-ci.org/pedroburon/dotenv.svg?branch=master)](https://travis-ci.org/pedroburon/dotenv)
+
 Shell Command and Library to write and read .env like files.
 
 .env file are commonly used with Procfile based apps.
