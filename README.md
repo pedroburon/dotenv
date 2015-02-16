@@ -53,3 +53,15 @@ FOO: baz
 ```
 
 > Every action is persisted.
+
+
+### Use with Django
+
+```python
+# add this to manage.py above `execute_from_command_line(sys.argv)`
+
+from dotenv import Dotenv
+dotenv = Dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+os.environ.update(dotenv)
+
+```
