@@ -98,3 +98,59 @@ class FunctionalTest(CompatibilityTestCase):
         dotenv = Dotenv(self.file_path)
 
         self.assertEqual(result, dotenv)
+
+
+class CommentTest(CompatibilityTestCase):
+    def setUp(self):
+        fd, self.file_path = mkstemp()
+        with open(self.file_path, 'w') as file:
+            file.write("# Commented .env file test\n")
+            file.write("FOO='bar'\n")
+            file.write("Bar=foo'\n")
+            file.write("############################!!!\n")
+            file.write("baz=1234'\n")
+            file.write("url='https://test.oi/do?it=fast' # wow look a URL!\n")
+        self.dotenv = Dotenv(self.file_path)
+
+    def tearDown(self):
+        os.unlink(self.file_path)
+
+    def test_create(self):
+        self.assertIsInstance(self.dotenv, Dotenv)
+        self.assertIsInstance(self.dotenv, dict)
+
+    def test_get_keys(self):
+        expected = set(['FOO', 'Bar', 'baz', 'url'])
+
+        self.assertEqual(expected, set(self.dotenv.keys()))
+
+    def test_get_values(self):
+        expected = set(['bar', 'foo', '1234', 'https://test.oi/do?it=fast'])
+
+        self.assertEqual(expected, set(self.dotenv.values()))
+
+    def test_set_new_key_value(self):
+        self.dotenv['asd'] = 'qwe'
+
+        newdotenv = Dotenv(self.file_path)
+
+        self.assertIn('asd', newdotenv)
+        self.assertEqual('qwe', newdotenv['asd'])
+
+    def test_set_existing_key(self):
+        self.dotenv['baz'] = 987
+
+        newdotenv = Dotenv(self.file_path)
+
+        self.assertEqual('987', newdotenv['baz'])
+        with open(self.file_path, 'r') as file:
+            self.assertEqual(4, len(file.readlines()))
+
+    def test_del_key(self):
+        del self.dotenv['baz']
+
+        newdotenv = Dotenv(self.file_path)
+
+        self.assertNotIn('baz', newdotenv)
+        with open(self.file_path, 'r') as file:
+            self.assertEqual(3, len(file.readlines()))
