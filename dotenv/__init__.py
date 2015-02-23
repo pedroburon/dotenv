@@ -19,9 +19,13 @@ class Dotenv(dict):
             return variables
 
     def __parse_line(self, line):
-        key, value = map(lambda x: x.strip().strip('\'').strip('"'),
-                         line.split('=', 1))
-        return {key: value}
+        line = line.split('#', 1)[0]
+        if line:
+            key, value = map(lambda x: x.strip().strip('\'').strip('"'),
+                             line.split('=', 1))
+            return {key: value}
+        else:
+            return {}
 
     def __persist(self):
         with open(self.file_path, 'w') as dotenv:
