@@ -25,12 +25,11 @@ class Dotenv(dict):
             return {}
         if line.lstrip():
             # find the second occurence of a quote mark:
-            quote_delimit = max(line.find('\'', line.find('\'')),
-                                line.find('"', line.rfind('"')))
+            quote_delimit = max(line.find('\'', line.find('\'') + 1),
+                                line.find('"', line.rfind('"')) + 1)
             # find first comment mark after second quote mark
             comment_delimit = line.find('#', quote_delimit)
             line = line[:comment_delimit]
-            print(line)
             key, value = map(lambda x: x.strip().strip('\'').strip('"'),
                              line.split('=', 1))
             return {key: value}

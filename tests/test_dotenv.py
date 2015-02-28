@@ -104,12 +104,15 @@ class CommentTest(CompatibilityTestCase):
     def setUp(self):
         fd, self.file_path = mkstemp()
         with open(self.file_path, 'w') as file:
-            file.write("# Commented .env file test\n")
-            file.write("FOO='bar'\n")
-            file.write("Bar=foo'\n")
-            file.write("############################!!!\n")
-            file.write("baz=1234'\n")
-            file.write("url='https://test.oi/do?it=fast' # wow look a URL!\n")
+            file.write("# a commented .env file, for testing\n")
+            file.write("SOMEVAR='12345' # a var, with an inline comment\n")
+            file.write("VAR='giggles'\n")
+            file.write("####################\n")
+            file.write("\n")
+            file.write("# another comment, notice the blank line above\n")
+            file.write("    # an indented comment\n")
+            file.write("cheese='cake'\n")
+            file.write("COMMENT='#comment#test' # a value containing a comment\n")
         self.dotenv = Dotenv(self.file_path)
 
     def tearDown(self):
@@ -120,37 +123,11 @@ class CommentTest(CompatibilityTestCase):
         self.assertIsInstance(self.dotenv, dict)
 
     def test_get_keys(self):
-        expected = set(['FOO', 'Bar', 'baz', 'url'])
+        expected = set(['SOMEVAR', 'VAR', 'cheese', 'COMMENT'])
 
         self.assertEqual(expected, set(self.dotenv.keys()))
 
     def test_get_values(self):
-        expected = set(['bar', 'foo', '1234', 'https://test.oi/do?it=fast'])
+        expected = set(['12345', 'giggles', 'cake', '#comment#test'])
 
         self.assertEqual(expected, set(self.dotenv.values()))
-
-    def test_set_new_key_value(self):
-        self.dotenv['asd'] = 'qwe'
-
-        newdotenv = Dotenv(self.file_path)
-
-        self.assertIn('asd', newdotenv)
-        self.assertEqual('qwe', newdotenv['asd'])
-
-    def test_set_existing_key(self):
-        self.dotenv['baz'] = 987
-
-        newdotenv = Dotenv(self.file_path)
-
-        self.assertEqual('987', newdotenv['baz'])
-        with open(self.file_path, 'r') as file:
-            self.assertEqual(4, len(file.readlines()))
-
-    def test_del_key(self):
-        del self.dotenv['baz']
-
-        newdotenv = Dotenv(self.file_path)
-
-        self.assertNotIn('baz', newdotenv)
-        with open(self.file_path, 'r') as file:
-            self.assertEqual(3, len(file.readlines()))
