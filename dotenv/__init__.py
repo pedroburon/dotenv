@@ -1,6 +1,7 @@
 # encoding=UTF-8
 
 from __future__ import with_statement
+import re
 
 
 __version__ = '0.0.4'
@@ -19,8 +20,17 @@ class Dotenv(dict):
             return variables
 
     def __parse_line(self, line):
-        line = line.split('#', 1)[0]
-        if line:
+        if line.lstrip().startswith('#'):
+            # discard and return nothing
+            return {}
+        if line.lstrip():
+            # find the second occurence of a quote mark:
+            quote_delimit = max(line.find('\'', line.find('\'')),
+                                line.find('"', line.rfind('"')))
+            # find first comment mark after second quote mark
+            comment_delimit = line.find('#', quote_delimit)
+            line = line[:comment_delimit]
+            print(line)
             key, value = map(lambda x: x.strip().strip('\'').strip('"'),
                              line.split('=', 1))
             return {key: value}
