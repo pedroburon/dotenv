@@ -1,7 +1,6 @@
 # encoding=UTF-8
 
 from __future__ import with_statement
-import re
 
 
 __version__ = '0.0.4'
