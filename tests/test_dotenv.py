@@ -98,3 +98,36 @@ class FunctionalTest(CompatibilityTestCase):
         dotenv = Dotenv(self.file_path)
 
         self.assertEqual(result, dotenv)
+
+
+class CommentTest(CompatibilityTestCase):
+    def setUp(self):
+        fd, self.file_path = mkstemp()
+        with open(self.file_path, 'w') as file:
+            file.write("# a commented .env file, for testing\n")
+            file.write("SOMEVAR='12345' # a var, with an inline comment\n")
+            file.write("VAR='giggles'\n")
+            file.write("####################\n")
+            file.write("\n")
+            file.write("# another comment, notice the blank line above\n")
+            file.write("    # an indented comment\n")
+            file.write("cheese='cake'\n")
+            file.write("COMMENT='#comment#test' # a value containing a comment\n")
+        self.dotenv = Dotenv(self.file_path)
+
+    def tearDown(self):
+        os.unlink(self.file_path)
+
+    def test_create(self):
+        self.assertIsInstance(self.dotenv, Dotenv)
+        self.assertIsInstance(self.dotenv, dict)
+
+    def test_get_keys(self):
+        expected = set(['SOMEVAR', 'VAR', 'cheese', 'COMMENT'])
+
+        self.assertEqual(expected, set(self.dotenv.keys()))
+
+    def test_get_values(self):
+        expected = set(['12345', 'giggles', 'cake', '#comment#test'])
+
+        self.assertEqual(expected, set(self.dotenv.values()))
