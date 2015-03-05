@@ -11,13 +11,21 @@ parser.add_argument('--file', default='.env')
 
 parser.add_argument('--version', action='version', version=__version__)
 
+parser.add_argument('--shell', action='store_true', default=False)
+
 args = parser.parse_args()
+
+
+if args.shell:
+    PRINT_FORMAT = '%s=%s'
+else:
+    PRINT_FORMAT = '%s: %s'
 
 if args.key is None:
     for key, value in get_variables(args.file).items():
-        print("%s: %s" % (key, value))
+        print(PRINT_FORMAT % (key, value))
 elif args.value is None:
-    print("%s: %s" % (args.key, get_variable(args.file, args.key)))
+    print(PRINT_FORMAT % (args.key, get_variable(args.file, args.key)))
 else:
     set_variable(args.file, args.key, args.value)
-    print("%s: %s" % (args.key, args.value))
+    print(PRINT_FORMAT % (args.key, args.value))
