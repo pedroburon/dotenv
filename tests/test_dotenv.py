@@ -81,7 +81,7 @@ class FunctionalTest(CompatibilityTestCase):
         self.assertEqual('qwe', dotenv['asd'])
 
     def test_set_existing_variable(self):
-        result = set_variable(self.file_path, 'baz', '987')
+        set_variable(self.file_path, 'baz', '987')
 
         dotenv = Dotenv(self.file_path)
         self.assertIn('baz', dotenv)

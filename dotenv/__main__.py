@@ -14,10 +14,10 @@ parser.add_argument('--version', action='version', version=__version__)
 args = parser.parse_args()
 
 if args.key is None:
-	for key, value in get_variables(args.file).items():
-		print("%s: %s" % (key, value))
+    for key, value in get_variables(args.file).items():
+        print("%s: %s" % (key, value))
 elif args.value is None:
-	print("%s: %s" % (args.key, get_variable(args.file, args.key)))
+    print("%s: %s" % (args.key, get_variable(args.file, args.key)))
 else:
-	set_variable(args.file, args.key, args.value)
-	print("%s: %s" % (args.key, args.value))
+    set_variable(args.file, args.key, args.value)
+    print("%s: %s" % (args.key, args.value))
