@@ -1,0 +1,7 @@
+[run]
+source = dotenv
+omit = dotenv/__main__.py
+
+[report]
+exclude_lines =
+    pragma: no cover
