@@ -3,7 +3,7 @@
 from __future__ import with_statement
 
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 
 class Dotenv(dict):
@@ -47,6 +47,7 @@ class Dotenv(dict):
     def __delitem__(self, key):
         super(Dotenv, self).__delitem__(key)
         self.__persist()
+
 
 def set_variable(file_path, key, value):
     dotenv = Dotenv(file_path)
