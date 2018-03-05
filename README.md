@@ -3,7 +3,7 @@ Python Dot Env Handler
 
 Shell Command and Library to write and read `.env` like files.
 
-[![Latest Version](https://pypip.in/version/dotenv/badge.svg)](https://pypi.python.org/pypi/dotenv/)
+[![Latest Version](https://img.shields.io/pypi/v/dotenv.svg)](https://pypi.python.org/pypi/dotenv/)
 [![Build Status](https://travis-ci.org/pedroburon/dotenv.svg?branch=master)](https://travis-ci.org/pedroburon/dotenv)
 [![Coverage Status](https://coveralls.io/repos/pedroburon/dotenv/badge.svg)](https://coveralls.io/r/pedroburon/dotenv)
 
