@@ -40,7 +40,7 @@ FOO: baz
 
 ```python
 >>> from dotenv import Dotenv
->>> dotenv = DotEnv('/path/to/.env')
+>>> dotenv = Dotenv('/path/to/.env')
 >>> print dotenv
 {"FOO": "bar", "Bar": "baz"}
 >>> dotenv['FOO']
