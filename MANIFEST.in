@@ -1,2 +1,3 @@
-include README.md scripts/dotenv distribute_setup.py
+include LICENSE README.md tox.ini scripts/dotenv distribute_setup.py
+recursive-include tests *.py
 global-exclude *pyc
