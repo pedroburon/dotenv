@@ -1,2 +1,0 @@
-include README.md scripts/dotenv distribute_setup.py
-global-exclude *pyc
